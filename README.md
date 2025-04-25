@@ -33,6 +33,38 @@ Lembrando que deverá seguir o padrão já pré-estabelecido no projeto na qual 
  1. Ajustar CSS e design para deixar a aplicação mais atraente.
  2. Criar outras ações que não foram pedidas acima.
 
+ ## Outras ações implementadas além dos requisitos obrigatórios
+
+1. **Ordenação dos itens**
+   - Permite ordenar a lista por nome (A-Z/Z-A), prioridade (baixa→alta/alta→baixa) e status (completas/incompletas).
+   - Implementado com menu de ordenação e integração backend/frontend.
+
+2. **Marcar todos como concluído**
+   - Botão para marcar todas as tarefas como concluídas de uma vez.
+   - Inclui dialog de confirmação para evitar ações acidentais.
+
+3. **Limpar todas as tarefas**
+   - Botão para remover todas as tarefas da lista de uma vez.
+   - Inclui dialog de confirmação para evitar exclusão acidental.
+
+4. **Feedback visual com Tooltips**
+   - Tooltips explicativos nos botões de ação para melhor experiência do usuário.
+
+5. **Confirmação visual para exclusão de item**
+   - Dialog de confirmação ao tentar excluir uma tarefa individual, evitando exclusão acidental.
+
+6. **Notificações (toasts) para ações**
+   - Exibe mensagens de sucesso ou erro ao adicionar, editar, remover ou realizar ações em lote.
+
+7. **Filtro por prioridade**
+   - Permite filtrar tarefas por prioridade (baixa, média, alta).
+
+8. **Validação de nome duplicado e vazio também no backend**
+   - Assegura integridade dos dados mesmo em chamadas diretas à API.
+
+9. **Filtro por status de conclusão**
+   - Possibilidade de filtrar tarefas completas ou incompletas (caso implementado no frontend).
+
 ## Como rodar o projeto?
 
 Você deverá entrar dentro da pasta `frontend` e rodar o comando `yarn` ou `npm install`. (Lembre se de instalar o [Nodejs](https://nodejs.org/en/download)) em seu computador.

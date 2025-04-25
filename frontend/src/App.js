@@ -6,7 +6,9 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import "./App.css";
-import List from "./list";
+import ListTasks from "./pages/ListTasks";
+import { TodoProvider } from "./context/TodoContext";
+import { NotificationProvider } from "./context/NotificationContext";
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URI,
@@ -28,11 +30,15 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <header className="App-header">
-          <List />
-        </header>
-      </div>
+      <NotificationProvider>
+        <TodoProvider>
+          <div className="App">
+            <header className="App-header">
+              <ListTasks />
+            </header>
+          </div>
+        </TodoProvider>
+      </NotificationProvider>
     </ApolloProvider>
   );
 }
