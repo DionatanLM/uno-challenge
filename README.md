@@ -64,6 +64,9 @@ Lembrando que deverá seguir o padrão já pré-estabelecido no projeto na qual 
 
 9. **Filtro por status de conclusão**
    - Possibilidade de filtrar tarefas completas ou incompletas (caso implementado no frontend).
+ 
+10. **Dark Mode**
+   - Possibilidade de alterar entre o modo light e dark
 
 ## Como rodar o projeto?
 
