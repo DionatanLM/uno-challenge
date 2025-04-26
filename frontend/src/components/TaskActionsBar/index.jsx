@@ -77,7 +77,7 @@ export default function TaskActionsBar({ filter, setFilter }) {
               }}
             />
           }
-          placeholder="Pesquise pelo nome ou id"
+          placeholder="Pesquise pelo nome..."
           value={filter.name}
           onChange={(e) => setFilter({ ...filter, name: e.target.value })}
           fullWidth
