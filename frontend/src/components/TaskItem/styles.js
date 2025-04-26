@@ -55,8 +55,8 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
 `;
 
 export const Text = styled.span`
-  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
-  color: ${(props) => (props.completed ? "#888" : "#000")};
+  text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
+  color: ${(props) => (props.$completed ? "#888" : "#000")};
   font-size: 16px;
   flex-grow: 1;
   margin-left: 10px;

@@ -1,6 +1,7 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { TODO_LIST } = require("./makeData");
+const DATA = require("./makeData");
+const TODO_LIST = DATA.TODO_LIST;
 
 // Gera um número inteiro para utilizar de id
 function getRandomInt() {
@@ -163,7 +164,7 @@ const resolvers = {
 
     // Remove todos os itens
     clearAll: () => {
-      TODO_LIST = [];
+      DATA.TODO_LIST.length = 0;
       return true;
     },
   },

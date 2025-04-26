@@ -9,6 +9,7 @@ import "./App.css";
 import ListTasks from "./pages/ListTasks";
 import { TodoProvider } from "./context/TodoContext";
 import { NotificationProvider } from "./context/NotificationContext";
+import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URI,
@@ -36,6 +37,7 @@ function App() {
             <header className="App-header">
               <ListTasks />
             </header>
+            <Footer />
           </div>
         </TodoProvider>
       </NotificationProvider>

@@ -7,7 +7,15 @@ import {
   Checkbox,
   EditInput,
 } from "./styles";
-import { Button, Dialog, DialogActions, DialogTitle, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { PRIORITY_LEVELS } from "../../constants/PriorityConstant";
 import { useTodo } from "../../context/TodoContext";
@@ -133,7 +141,7 @@ const TaskItem = ({ id, name, priority, completed }) => {
           />
         ) : (
           <Text
-            completed={completed}
+            $completed={completed}
             onClick={() => setEditingName(true)}
             style={{ cursor: "pointer" }}
           >
@@ -187,6 +195,7 @@ const TaskItem = ({ id, name, priority, completed }) => {
         >
           <Delete fontSize="small" />
         </IconButton>
+
         <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
           <DialogTitle>Deseja realmente excluir esta tarefa?</DialogTitle>
           <DialogActions>

@@ -5,7 +5,7 @@ export const PRIORITY_LEVELS = {
   },
   MEDIUM: {
     title: "Média",
-    color: "#ff9800",
+    color: "#fa8800",
   },
   HIGH: {
     title: "Alta",

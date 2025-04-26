@@ -125,7 +125,7 @@ export const Button = styled.button`
   }
 `;
 
-export const FilterInput = styled.div`
+export const FilterContainer = styled.div`
   display: flex;
   gap: 8px;
   margin-bottom: 15px;
