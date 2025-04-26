@@ -11,6 +11,7 @@ import {
 } from "../TaskItem/styles";
 import { Add } from "@mui/icons-material";
 import { useNotification } from "../../context/NotificationContext";
+import { useTheme } from "styled-components";
 
 const TaskItemCreate = ({ onAdd, onCancel }) => {
   const [name, setName] = useState("");
@@ -18,6 +19,7 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const notify = useNotification();
   const inputRef = useRef();
+  const theme = useTheme();
 
   // Adiciona a tarefa
   const handleAdd = useCallback(async () => {
@@ -73,8 +75,11 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
         <>
           <PriorityLabel
             style={{
-              backgroundColor: PRIORITY_LEVELS[priority]?.color || "#ccc",
+              backgroundColor:
+                PRIORITY_LEVELS[priority]?.color || theme.priorityDefault,
+              color: priority ? "#fff" : theme.text,
               cursor: "pointer",
+              border: !priority ? `1px solid ${theme.border}` : undefined,
             }}
             onClick={(e) => setAnchorEl(e.currentTarget)}
           >
@@ -84,6 +89,14 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={() => setAnchorEl(null)}
+            slotProps={{
+              paper: {
+                style: {
+                  background: theme.card,
+                  color: theme.text,
+                },
+              },
+            }}
           >
             {Object.keys(PRIORITY_LEVELS).map((key) => (
               <MenuItem
@@ -94,7 +107,7 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
                   fontWeight: priority === key ? "bold" : "normal",
                   background:
                     priority === key ? PRIORITY_LEVELS[key].color : undefined,
-                  color: priority === key ? "#fff" : undefined,
+                  color: priority === key ? "#fff" : theme.text,
                 }}
               >
                 {PRIORITY_LEVELS[key].title}
@@ -105,6 +118,11 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
               onClick={() => {
                 setPriority("");
                 setAnchorEl(null);
+              }}
+              style={{
+                color: theme.text,
+                background: !priority ? theme.priorityDefault : undefined,
+                fontWeight: !priority ? "bold" : "normal",
               }}
             >
               Sem prioridade

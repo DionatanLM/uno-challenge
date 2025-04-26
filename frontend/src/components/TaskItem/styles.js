@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Item = styled.div`
-  background: #f9f9f9;
+  background: ${({ theme }) => theme.itemBg};
   padding: 10px 14px;
   border-radius: 12px;
   display: flex;
@@ -13,8 +13,8 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
   width: 22px;
   height: 22px;
   border-radius: 8px;
-  border: 1px solid #0000002b;
-  background: #f5f5f7;
+  border: 1px solid ${({ theme }) => theme.border};
+  background: ${({ theme }) => theme.inputBg};
   appearance: none;
   outline: none;
   margin-right: 10px;
@@ -56,7 +56,10 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
 
 export const Text = styled.span`
   text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
-  color: ${(props) => (props.$completed ? "#888" : "#000")};
+  color: ${(props) =>
+    props.$completed
+      ? props.theme.itemCompleted
+      : props.theme.itemText};
   font-size: 16px;
   flex-grow: 1;
   margin-left: 10px;
@@ -78,20 +81,21 @@ export const PriorityLabel = styled.div`
   border-radius: 8px;
   font-size: 12px;
   font-weight: bold;
+  background: ${({ color, theme }) => color || theme.priorityDefault};
 `;
 
 export const EditInput = styled.input`
   border: none;
   background: transparent;
   font-size: 16px;
-  color: #000;
+  color: ${({ theme }) => theme.itemText};
   flex-grow: 1;
   margin-left: 10px;
   outline: none;
 `;
 
 export const EditSelect = styled.select`
-  background: #f2bc00; // ou use PRIORITY_LEVELS[editPriority]?.color dinamicamente no componente
+  background: #f2bc00;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;

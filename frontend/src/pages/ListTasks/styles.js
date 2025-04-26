@@ -1,11 +1,18 @@
 import { Select as MuiSelect, OutlinedInput } from "@mui/material";
 import styled from "styled-components";
 
+export const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 8px;
+`;
+
 export const Title = styled.h2`
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 2rem;
+  color: ${({ theme }) => theme.text};
+  margin-bottom: 0;
   margin-top: 0;
   text-align: left;
 `;
@@ -15,9 +22,9 @@ export const Container = styled.div`
   max-width: 600px;
   margin: 30px auto;
   padding: 20px;
-  background: #fff;
+  background: ${({ theme }) => theme.card};
   border-radius: 10px;
-  border: 1px solid #0000002b;
+  border: 1px solid ${({ theme }) => theme.border};
 
   @media (max-width: 650px) {
     padding: 12px;
@@ -36,17 +43,18 @@ export const Select = styled(MuiSelect)`
     min-width: 120px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #0000002b;
+    border: 1px solid ${({ theme }) => theme.border};
     font-size: 0.9rem;
     padding: 0 8px;
     display: flex;
-    color: #888;
+    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.inputBg}
     align-items: center;
     .MuiSelect-select {
       padding: 10px 8px;
       display: flex;
       align-items: center;
-      color: #888;
+      color: ${({ theme }) => theme.text};
     }
     fieldset {
       border: none;
@@ -61,6 +69,8 @@ export const Input = styled(OutlinedInput)`
     font-size: 0.9rem;
     transition: border 0.2s ease-in-out, box-shadow 0.2s, background 0.2s;
     box-shadow: none;
+    background: ${({ theme }) => theme.inputBg}
+    color: ${({ theme }) => theme.inputText};
 
     &:hover {
       border-color: #1976d2;
@@ -68,14 +78,14 @@ export const Input = styled(OutlinedInput)`
   }
 
   & .MuiOutlinedInput-notchedOutline {
-    border: 1px solid #0000002b;
+    border: 1px solid ${({ theme }) => theme.border};
     border-radius: 12px;
     transition: border 0.2;
   }
 
   &.Mui-focused .MuiOutlinedInput-notchedOutline,
   & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border: 1px solid #0000002b !important;
+    border: 1px solid ${({ theme }) => theme.border} !important;
     box-shadow: none !important;
     outline: none !important;
   }
@@ -85,6 +95,7 @@ export const Input = styled(OutlinedInput)`
     height: 40px;
     box-sizing: border-box;
     outline: none;
+    color: ${({ theme }) => theme.inputText};
   }
 
   & .MuiInputBase-input:focus,
@@ -94,13 +105,12 @@ export const Input = styled(OutlinedInput)`
   }
 
   & .MuiInputLabel-root {
-    color: #888;
+    color: ${({ theme }) => theme.text};
     font-size: 1rem;
   }
 
   &:hover .MuiOutlinedInput-notchedOutline {
     border: 1.5px solid #1976d2;
-
     box-shadow: 0 0 4px #1976d233;
     transition: border 0.2s, box-shadow 0.2s;
   }
@@ -141,14 +151,14 @@ export const TaskList = styled.div`
 
 export const EmptyList = styled.div`
   text-align: center;
-  color: #888;
+  color: ${({ theme }) => theme.itemCompleted};
   font-size: 1.2rem;
   margin-top: 20px;
 `;
 
 export const EmptyListDescription = styled.div`
   text-align: center;
-  color: #888;
+  color: ${({ theme }) => theme.itemCompleted};
   font-size: 0.9rem;
   margin-top: 10px;
 `;

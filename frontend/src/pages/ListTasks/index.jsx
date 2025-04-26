@@ -4,7 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useTodo } from "../../context/TodoContext";
 
-import { Add } from "@mui/icons-material";
+import { Add, Brightness4, Brightness7 } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import { useThemeMode } from "../../context/ThemeModeContext";
+import { useTheme } from "styled-components";
 import TaskActionsBar from "../../components/TaskActionsBar";
 import TaskItem from "../../components/TaskItem";
 import TaskItemCreate from "../../components/TaskItemCreate";
@@ -15,6 +18,7 @@ import {
   EmptyListDescription,
   TaskList,
   Title,
+  TitleContainer,
 } from "./styles";
 
 export default function ListTasks() {
@@ -23,6 +27,8 @@ export default function ListTasks() {
 
   // Contexto personalizado que encapsula a lógica de gerenciamento de tarefas
   const { items, loading, addItem, refetch } = useTodo();
+  const { theme, toggleTheme } = useThemeMode();
+  const themeObj = useTheme();
 
   if (loading) return <div>Carregando...</div>;
 
@@ -40,11 +46,23 @@ export default function ListTasks() {
           justifyContent: "space-between",
         }}
       >
-        <Title>TODO List</Title>
-
-        <Button onClick={() => setShowAdd((v) => !v)}>
-          <Add fontSize="small" color="888" />
-        </Button>
+        <TitleContainer>
+          <IconButton
+            onClick={toggleTheme}
+            color="inherit"
+            aria-label="Alternar tema"
+            style={{ marginLeft: 4, color: themeObj.text }}
+            size="small"
+          >
+            {theme === "dark" ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+          <Title>TODO List</Title>
+        </TitleContainer>
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <Button onClick={() => setShowAdd((v) => !v)}>
+            <Add fontSize="small" style={{ color: themeObj.text }} />
+          </Button>
+        </div>
       </div>
 
       <TaskActionsBar filter={filter} setFilter={setFilter} />

@@ -21,6 +21,7 @@ import { PRIORITY_LEVELS } from "../../constants/PriorityConstant";
 import { useTodo } from "../../context/TodoContext";
 import { motion } from "framer-motion";
 import { useNotification } from "../../context/NotificationContext";
+import { useTheme } from "styled-components";
 
 const TaskItem = ({ id, name, priority, completed }) => {
   const { deleteItem, updateItem, refetch } = useTodo();
@@ -29,6 +30,7 @@ const TaskItem = ({ id, name, priority, completed }) => {
   const [editName, setEditName] = useState(name);
   const [anchorEl, setAnchorEl] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const theme = useTheme();
 
   // Função para deletar o item
   const onDelete = async () => {
@@ -153,8 +155,11 @@ const TaskItem = ({ id, name, priority, completed }) => {
         <>
           <PriorityLabel
             style={{
-              backgroundColor: PRIORITY_LEVELS[priority]?.color || "#ccc",
+              backgroundColor:
+                PRIORITY_LEVELS[priority]?.color || theme.priorityDefault,
+              color: priority ? "#fff" : theme.text,
               cursor: "pointer",
+              border: !priority ? `1px solid ${theme.border}` : undefined,
             }}
             onClick={handlePriorityClick}
           >
@@ -164,6 +169,14 @@ const TaskItem = ({ id, name, priority, completed }) => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handlePriorityClose}
+            slotProps={{
+              paper: {
+                style: {
+                  background: theme.card,
+                  color: theme.text,
+                },
+              },
+            }}
           >
             {Object.keys(PRIORITY_LEVELS).map((key) => (
               <MenuItem
@@ -174,7 +187,7 @@ const TaskItem = ({ id, name, priority, completed }) => {
                   fontWeight: priority === key ? "bold" : "normal",
                   background:
                     priority === key ? PRIORITY_LEVELS[key].color : undefined,
-                  color: priority === key ? "#fff" : undefined,
+                  color: priority === key ? "#fff" : theme.text,
                 }}
               >
                 {PRIORITY_LEVELS[key].title}
@@ -183,6 +196,11 @@ const TaskItem = ({ id, name, priority, completed }) => {
             <MenuItem
               selected={!priority}
               onClick={() => handlePrioritySelect("")}
+              style={{
+                color: theme.text,
+                background: !priority ? theme.priorityDefault : undefined,
+                fontWeight: !priority ? "bold" : "normal",
+              }}
             >
               Sem prioridade
             </MenuItem>
@@ -190,14 +208,27 @@ const TaskItem = ({ id, name, priority, completed }) => {
         </>
         <IconButton
           size="small"
-          color="888"
+          style={{ color: theme.text }}
           onClick={() => setConfirmOpen(true)}
         >
           <Delete fontSize="small" />
         </IconButton>
 
-        <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
-          <DialogTitle>Deseja realmente excluir esta tarefa?</DialogTitle>
+        <Dialog
+          open={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          slotProps={{
+            paper: {
+              style: {
+                background: theme.card,
+                color: theme.text,
+              },
+            },
+          }}
+        >
+          <DialogTitle style={{ color: theme.text }}>
+            Deseja realmente excluir esta tarefa?
+          </DialogTitle>
           <DialogActions>
             <Button onClick={() => setConfirmOpen(false)} color="primary">
               Cancelar
