@@ -26,15 +26,15 @@ export function TodoProvider({ children }) {
   });
 
   // Adicionar um novo item
-  const [addItem] = useMutation(ADD_ITEM_MUTATION, { onCompleted: refetch });
+  const [addItemMutation] = useMutation(ADD_ITEM_MUTATION, { onCompleted: refetch });
 
   // Atualizar um item existente
-  const [updateItem] = useMutation(UPDATE_ITEM_MUTATION, {
+  const [updateItemMutation] = useMutation(UPDATE_ITEM_MUTATION, {
     onCompleted: refetch,
   });
 
   // Deletar um item
-  const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
+  const [deleteItemMutation] = useMutation(DELETE_ITEM_MUTATION, {
     onCompleted: refetch,
   });
 
@@ -47,6 +47,25 @@ export function TodoProvider({ children }) {
   const [clearAll] = useMutation(CLEAR_ALL_MUTATION, {
     onCompleted: refetch,
   });
+
+  // Wrappers para lidar com o novo retorno detalhado
+  const addItem = async (options) => {
+    const res = await addItemMutation(options);
+    if (res?.data?.addItem?.success === false) throw new Error(res.data.addItem.message);
+    return res?.data?.addItem;
+  };
+
+  const updateItem = async (options) => {
+    const res = await updateItemMutation(options);
+    if (res?.data?.updateItem?.success === false) throw new Error(res.data.updateItem.message);
+    return res?.data?.updateItem;
+  };
+
+  const deleteItem = async (options) => {
+    const res = await deleteItemMutation(options);
+    if (res?.data?.deleteItem?.success === false) throw new Error(res.data.deleteItem.message);
+    return res?.data?.deleteItem;
+  };
 
   return (
     <TodoContext.Provider

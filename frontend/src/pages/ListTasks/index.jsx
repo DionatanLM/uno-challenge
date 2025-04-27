@@ -26,7 +26,7 @@ export default function ListTasks() {
   const [filter, setFilter] = useState({ name: "", priority: "" });
 
   // Contexto personalizado que encapsula a lógica de gerenciamento de tarefas
-  const { items, loading, addItem, refetch } = useTodo();
+  const { items, loading, addItem } = useTodo();
   const { theme, toggleTheme } = useThemeMode();
   const themeObj = useTheme();
 
@@ -34,7 +34,6 @@ export default function ListTasks() {
 
   const handleAddTask = async ({ name, priority }) => {
     await addItem({ variables: { values: { name, priority } } });
-    refetch();
   };
 
   return (
