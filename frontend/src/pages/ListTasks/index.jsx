@@ -1,4 +1,4 @@
-import { CircularProgress, Divider } from "@mui/material";
+import { CircularProgress, Divider, Tooltip } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -47,15 +47,17 @@ export default function ListTasks() {
         }}
       >
         <TitleContainer>
-          <IconButton
-            onClick={toggleTheme}
-            color="inherit"
-            aria-label="Alternar tema"
-            style={{ marginLeft: 4, color: themeObj.text }}
-            size="small"
-          >
-            {theme === "dark" ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+          <Tooltip title={theme === "dark" ? "Alternar para tema claro" : "Alternar para tema escuro"}>
+            <IconButton
+              onClick={toggleTheme}
+              color="inherit"
+              aria-label="Alternar tema"
+              style={{ marginLeft: 4, color: themeObj.text }}
+              size="small"
+            >
+              {theme === "dark" ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </Tooltip>
           <Title>TODO List</Title>
         </TitleContainer>
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>

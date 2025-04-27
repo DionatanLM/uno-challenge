@@ -15,6 +15,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { PRIORITY_LEVELS } from "../../constants/PriorityConstant";
@@ -206,13 +207,15 @@ const TaskItem = ({ id, name, priority, completed }) => {
             </MenuItem>
           </Menu>
         </>
-        <IconButton
-          size="small"
-          style={{ color: theme.text }}
-          onClick={() => setConfirmOpen(true)}
-        >
-          <Delete fontSize="small" />
-        </IconButton>
+        <Tooltip title="Excluir">
+          <IconButton
+            size="small"
+            style={{ color: theme.text }}
+            onClick={() => setConfirmOpen(true)}
+          >
+            <Delete fontSize="small" />
+          </IconButton>
+        </Tooltip>
 
         <Dialog
           open={confirmOpen}

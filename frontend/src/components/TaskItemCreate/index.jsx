@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import { PRIORITY_LEVELS } from "../../constants/PriorityConstant";
 import { motion } from "framer-motion";
 import {
@@ -129,23 +129,27 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
             </MenuItem>
           </Menu>
         </>
-        <IconButton
-          size="small"
-          color="primary"
-          onClick={handleAdd}
-          disabled={!name.trim()}
-          aria-label="Adicionar"
-        >
-          <Add fontSize="small" />
-        </IconButton>
-        <IconButton
-          size="small"
-          color="error"
-          onClick={onCancel}
-          aria-label="Cancelar"
-        >
-          ✖
-        </IconButton>
+        <Tooltip title="Adicionar">
+          <IconButton
+            size="small"
+            color="primary"
+            onClick={handleAdd}
+            disabled={!name.trim()}
+            aria-label="Adicionar"
+          >
+            <Add fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Cancelar">
+          <IconButton
+            size="small"
+            color="error"
+            onClick={onCancel}
+            aria-label="Cancelar"
+          >
+            ✖
+          </IconButton>
+        </Tooltip>
       </Actions>
     </Item>
   );
