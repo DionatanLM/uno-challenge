@@ -1,21 +1,10 @@
-
 # UNO | Challenge
 
-Parabéns, se você chegou até aqui significa que você está participando do processo seletivo de uma das melhores empresas de tecnologia do mercado!
-
-## Como será o desafio técnico?
-
-Nesse repositório já temos um projeto pré-desenvolvido com as tecnologias que mais utilizamos na UNO, das quais são: 
+Tecnologias:
 [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 [NodeJs](https://nodejs.org/pt-br/docs)
 [Graphql](https://graphql.org/learn/)
 [React](https://pt-br.legacy.reactjs.org/docs/getting-started.html)
-
-O projeto resume-se em um TODO LIST (Lista de tarefas), onde o usuário poderá `adicionar`, `editar`, `remover`, e `filtrar` os itens de sua lista de tarefa.
-
-Hoje o projeto já está adicionando itens na lista e buscando os itens que estão salvos. Com isso já demos um exemplo de como você pode seguir.
-
-Como fizemos uma estrutura simples com dados `mocados`, deverá ser feita uma manipulação de arrays, seguindo os requisitos que iremos pedir abaixo.
 
 ## Requisitos obrigatórios
 
@@ -48,7 +37,7 @@ Lembrando que deverá seguir o padrão já pré-estabelecido no projeto na qual 
    - Inclui dialog de confirmação para evitar exclusão acidental.
 
 4. **Feedback visual com Tooltips**
-   - Tooltips explicativos nos botões de ação para melhor experiência do usuário.
+   - Tooltips explicativos nos botões de ação para melhor experiência do usuário
 
 5. **Confirmação visual para exclusão de item**
    - Dialog de confirmação ao tentar excluir uma tarefa individual, evitando exclusão acidental.
@@ -59,14 +48,46 @@ Lembrando que deverá seguir o padrão já pré-estabelecido no projeto na qual 
 7. **Filtro por prioridade**
    - Permite filtrar tarefas por prioridade (baixa, média, alta).
 
-8. **Validação de nome duplicado e vazio também no backend**
-   - Assegura integridade dos dados mesmo em chamadas diretas à API.
+8. **Filtro por status de conclusão**
+   - Possibilidade de filtrar tarefas completas ou incompletas.
 
-9. **Filtro por status de conclusão**
-   - Possibilidade de filtrar tarefas completas ou incompletas (caso implementado no frontend).
- 
+9. **Validação de nome duplicado e vazio também no backend**
+   - Assegura integridade dos dados mesmo em chamadas diretas à API.
+   - Utilização de validação com Joi para garantir regras de negócio no backend.
+
 10. **Dark Mode**
-   - Possibilidade de alterar entre o modo light e dark
+    - Possibilidade de alternar entre o modo light e dark.
+
+11. **Otimização do contexto de tarefas**
+    - Uso de `useMemo` para evitar re-renderizações desnecessárias dos consumidores do contexto.
+
+12. **Debounce no filtro de nome**
+    - Reduz requisições ao backend ao filtrar por nome, melhorando performance.
+
+13. **Design responsivo e melhorias visuais**
+    - Ajustes de CSS para melhor experiência em diferentes tamanhos de tela e temas.
+
+14. **Testes automatizados**
+    - Estrutura inicial de testes com Jest e React Testing Library para componentes e hooks principais.
+    - Exemplos de testes unitários e de integração para garantir o funcionamento das principais funcionalidades.
+
+15. **Tratamento de erros e UX**
+    - Mensagens de erro amigáveis para o usuário em casos de falha de rede, duplicidade ou campos obrigatórios.
+    - Feedback visual imediato para ações do usuário.
+
+16. **Código limpo e documentado**
+    - Componentes e funções documentados com comentários explicativos.
+    - Organização de pastas e arquivos seguindo boas práticas de projetos React.
+
+17. **Hooks customizados**
+    - Uso de hooks customizados como `useDebounce` para otimizar performance e experiência do usuário.
+
+18. **Contextos desacoplados**
+    - Separação dos contextos de tarefas, notificações e tema para melhor escalabilidade e manutenção do código.
+
+19. **Experiência de usuário aprimorada**
+    - Animações com Framer Motion para transições suaves na lista de tarefas.
+    - Placeholders e mensagens para listas vazias.
 
 ## Como rodar o projeto?
 

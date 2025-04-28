@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
 import {
   ADD_ITEM_MUTATION,
   COMPLETE_ALL_MUTATION,
@@ -13,7 +13,7 @@ const TodoContext = createContext();
 
 // O TodoProvider é um componente que fornece o contexto de tarefas para seus filhos
 export function TodoProvider({ children }) {
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({ name: "" });
   const [orderBy, setOrderBy] = useState("");
   const [order, setOrder] = useState("asc");
   const { data, loading, refetch } = useQuery(GET_TODO_LIST, {
@@ -67,24 +67,38 @@ export function TodoProvider({ children }) {
     return res?.data?.deleteItem;
   };
 
+  const contextValue = useMemo(() => ({
+    items: data?.todoList || [],
+    loading,
+    addItem,
+    updateItem,
+    deleteItem,
+    completeAll,
+    orderBy,
+    setOrderBy,
+    order,
+    setOrder,
+    setFilter,
+    refetch,
+    clearAll,
+  }), [
+    data?.todoList,
+    loading,
+    addItem,
+    updateItem,
+    deleteItem,
+    completeAll,
+    orderBy,
+    order,
+    setOrderBy,
+    setOrder,
+    setFilter,
+    refetch,
+    clearAll,
+  ]);
+
   return (
-    <TodoContext.Provider
-      value={{
-        items: data?.todoList || [],
-        loading,
-        addItem,
-        updateItem,
-        deleteItem,
-        completeAll,
-        orderBy,
-        setOrderBy,
-        order,
-        setOrder,
-        setFilter,
-        refetch,
-        clearAll,
-      }}
-    >
+    <TodoContext.Provider value={contextValue}>
       {children}
     </TodoContext.Provider>
   );
