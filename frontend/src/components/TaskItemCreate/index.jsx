@@ -24,12 +24,12 @@ const TaskItemCreate = ({ onAdd, onCancel }) => {
   // Adiciona a tarefa
   const handleAdd = useCallback(async () => {
     try {
-      await onAdd({ name, priority });
-      notify("Tarefa adicionada com sucesso!", "success");
+      const result = await onAdd({ name, priority });
+      notify(result?.message || "Tarefa adicionada com sucesso!", "success");
       resetInputs();
       onCancel();
     } catch (error) {
-      notify(error?.message || "Erro ao adicionar tarefa.", "error");
+      notify(error?.message || error || "Erro ao adicionar tarefa.", "error");
     }
   }, [name, priority, onAdd, onCancel, notify]);
 

@@ -27,7 +27,6 @@ export default function TaskActionsBar({ filter, setFilter }) {
     order,
     setOrder,
     clearAll,
-    refetch,
     completeAll,
     setFilter: setGlobalFilter,
   } = useTodo();
@@ -49,7 +48,6 @@ export default function TaskActionsBar({ filter, setFilter }) {
   // Função para remover todos os itens da lista
   const confirmRemoveAll = async () => {
     await clearAll();
-    refetch();
     setOpenRemoveAll(false);
   };
 
@@ -61,7 +59,6 @@ export default function TaskActionsBar({ filter, setFilter }) {
   // Função para completar todos os itens da lista
   const confirmCompleteAll = async () => {
     await completeAll();
-    refetch();
     setOpenCompleteAll(false);
   };
 

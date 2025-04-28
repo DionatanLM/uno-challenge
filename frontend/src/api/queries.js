@@ -15,21 +15,48 @@ export const GET_TODO_LIST = gql`
 // Adiciona um novo item (prioridade opcional)
 export const ADD_ITEM_MUTATION = gql`
   mutation addItem($values: ItemInput) {
-    addItem(values: $values)
+    addItem(values: $values) {
+      success
+      message
+      item {
+        id
+        name
+        priority
+        completed
+      }
+    }
   }
 `;
 
 // Atualiza um item (nome, prioridade ou concluído)
 export const UPDATE_ITEM_MUTATION = gql`
   mutation updateItem($values: ItemInput) {
-    updateItem(values: $values)
+    updateItem(values: $values) {
+      success
+      message
+      item {
+        id
+        name
+        priority
+        completed
+      }
+    }
   }
 `;
 
 // Remove um item pelo id
 export const DELETE_ITEM_MUTATION = gql`
   mutation deleteItem($id: Int!) {
-    deleteItem(id: $id)
+    deleteItem(id: $id) {
+      success
+      message
+      item {
+        id
+        name
+        priority
+        completed
+      }
+    }
   }
 `;
 

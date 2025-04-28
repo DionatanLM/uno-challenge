@@ -97,13 +97,13 @@ function AppContent() {
 function App() {
   return (
     <ApolloProvider client={client}>
-      <NotificationProvider>
-        <TodoProvider>
+      <TodoProvider>
+        <NotificationProvider>
           <ThemeModeProvider>
             <AppContent />
           </ThemeModeProvider>
-        </TodoProvider>
-      </NotificationProvider>
+        </NotificationProvider>
+      </TodoProvider>
     </ApolloProvider>
   );
 }

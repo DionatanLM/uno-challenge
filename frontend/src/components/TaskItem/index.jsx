@@ -25,7 +25,7 @@ import { useNotification } from "../../context/NotificationContext";
 import { useTheme } from "styled-components";
 
 const TaskItem = ({ id, name, priority, completed }) => {
-  const { deleteItem, updateItem, refetch } = useTodo();
+  const { deleteItem, updateItem } = useTodo();
   const notification = useNotification();
   const [editingName, setEditingName] = useState(false);
   const [editName, setEditName] = useState(name);
@@ -35,31 +35,37 @@ const TaskItem = ({ id, name, priority, completed }) => {
 
   // Função para deletar o item
   const onDelete = async () => {
-    await deleteItem({ variables: { id } });
-    notification("Tarefa deletada com sucesso!", "success");
-    refetch();
+    try {
+      const result = await deleteItem({ variables: { id } });
+      notification(result?.message || "Tarefa deletada com sucesso!", "success");
+    } catch (error) {
+      notification(error?.message || "Erro ao deletar tarefa.", "error");
+    }
   };
 
   // Função para alternar o estado de conclusão do item
   const onToggleComplete = async () => {
-    await updateItem({
-      variables: {
-        values: {
-          id,
-          name,
-          priority: priority || "",
-          completed: !completed,
+    try {
+      await updateItem({
+        variables: {
+          values: {
+            id,
+            name,
+            priority: priority || "",
+            completed: !completed,
+          },
         },
-      },
-    });
-    refetch();
+      });
+    } catch (error) {
+      notification(error?.message || "Erro ao atualizar tarefa.", "error");
+    }
   };
 
   // Função para salvar a edição do nome
   const saveEditName = async () => {
     if (editName.trim() && editName !== name) {
       try {
-        await updateItem({
+        const result = await updateItem({
           variables: {
             values: {
               id,
@@ -69,8 +75,7 @@ const TaskItem = ({ id, name, priority, completed }) => {
             },
           },
         });
-        notification("Tarefa atualizada com sucesso!", "success");
-        refetch();
+        notification(result?.message || "Tarefa atualizada com sucesso!", "success");
       } catch (error) {
         notification(error?.message || "Erro ao atualizar tarefa.", "error");
       }
@@ -104,17 +109,21 @@ const TaskItem = ({ id, name, priority, completed }) => {
   const handlePrioritySelect = async (newPriority) => {
     setAnchorEl(null);
     if (newPriority !== priority) {
-      await updateItem({
-        variables: {
-          values: {
-            id,
-            name,
-            priority: newPriority,
-            completed,
+      try {
+        const result = await updateItem({
+          variables: {
+            values: {
+              id,
+              name,
+              priority: newPriority,
+              completed,
+            },
           },
-        },
-      });
-      refetch();
+        });
+        notification(result?.message || "Tarefa atualizada com sucesso!", "success");
+      } catch (error) {
+        notification(error?.message || "Erro ao atualizar tarefa.", "error");
+      }
     }
   };
 
