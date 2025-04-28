@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { createContext, useContext, useState, useMemo } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   ADD_ITEM_MUTATION,
   COMPLETE_ALL_MUTATION,
@@ -26,7 +32,9 @@ export function TodoProvider({ children }) {
   });
 
   // Adicionar um novo item
-  const [addItemMutation] = useMutation(ADD_ITEM_MUTATION, { onCompleted: refetch });
+  const [addItemMutation] = useMutation(ADD_ITEM_MUTATION, {
+    onCompleted: refetch,
+  });
 
   // Atualizar um item existente
   const [updateItemMutation] = useMutation(UPDATE_ITEM_MUTATION, {
@@ -49,58 +57,73 @@ export function TodoProvider({ children }) {
   });
 
   // Wrappers para lidar com o novo retorno detalhado
-  const addItem = async (options) => {
-    const res = await addItemMutation(options);
-    if (res?.data?.addItem?.success === false) throw new Error(res.data.addItem.message);
-    return res?.data?.addItem;
-  };
+  const addItem = useCallback(
+    async (options) => {
+      const res = await addItemMutation(options);
+      if (res?.data?.addItem?.success === false)
+        throw new Error(res.data.addItem.message);
+      return res?.data?.addItem;
+    },
+    [addItemMutation]
+  );
 
-  const updateItem = async (options) => {
-    const res = await updateItemMutation(options);
-    if (res?.data?.updateItem?.success === false) throw new Error(res.data.updateItem.message);
-    return res?.data?.updateItem;
-  };
+  // Função para atualizar um item
+  const updateItem = useCallback(
+    async (options) => {
+      const res = await updateItemMutation(options);
+      if (res?.data?.updateItem?.success === false)
+        throw new Error(res.data.updateItem.message);
+      return res?.data?.updateItem;
+    },
+    [updateItemMutation]
+  );
 
-  const deleteItem = async (options) => {
-    const res = await deleteItemMutation(options);
-    if (res?.data?.deleteItem?.success === false) throw new Error(res.data.deleteItem.message);
-    return res?.data?.deleteItem;
-  };
+  // Função para deletar um item
+  const deleteItem = useCallback(
+    async (options) => {
+      const res = await deleteItemMutation(options);
+      if (res?.data?.deleteItem?.success === false)
+        throw new Error(res.data.deleteItem.message);
+      return res?.data?.deleteItem;
+    },
+    [deleteItemMutation]
+  );
 
-  const contextValue = useMemo(() => ({
-    items: data?.todoList || [],
-    loading,
-    addItem,
-    updateItem,
-    deleteItem,
-    completeAll,
-    orderBy,
-    setOrderBy,
-    order,
-    setOrder,
-    setFilter,
-    refetch,
-    clearAll,
-  }), [
-    data?.todoList,
-    loading,
-    addItem,
-    updateItem,
-    deleteItem,
-    completeAll,
-    orderBy,
-    order,
-    setOrderBy,
-    setOrder,
-    setFilter,
-    refetch,
-    clearAll,
-  ]);
+  const contextValue = useMemo(
+    () => ({
+      items: data?.todoList || [],
+      loading,
+      addItem,
+      updateItem,
+      deleteItem,
+      completeAll,
+      orderBy,
+      setOrderBy,
+      order,
+      setOrder,
+      setFilter,
+      refetch,
+      clearAll,
+    }),
+    [
+      data?.todoList,
+      loading,
+      addItem,
+      updateItem,
+      deleteItem,
+      completeAll,
+      orderBy,
+      order,
+      setOrderBy,
+      setOrder,
+      setFilter,
+      refetch,
+      clearAll,
+    ]
+  );
 
   return (
-    <TodoContext.Provider value={contextValue}>
-      {children}
-    </TodoContext.Provider>
+    <TodoContext.Provider value={contextValue}>{children}</TodoContext.Provider>
   );
 }
 
